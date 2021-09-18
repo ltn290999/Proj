@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>E-come | Multi-Purpose HTML Template for Electronics Store</title>
+<link rel="stylesheet" th:href="@{/test/css/owl.carousel.min.css}">
+<link rel="shortcut icon" th:href="@{/test/img/favicon.png}" type="image/png">
+<link rel="stylesheet" th:href="@{/test/css/slick.css}">
+<link rel="stylesheet" th:href="@{/test/css/slick-theme.css}">
+<link rel="stylesheet" th:href="@{/test/css/owl.theme.default.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/css/style.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/css/bootstrap-slider.css}">
+
+<link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+	<div class="wrappage">
+		<div class="quickview-wrapper" style="display: none">
+			<div class="quick-modal">
+				<div id="quickview-content"></div>
+			</div>
+		</div>
+
+		<header id="header" class="header-v1">
+			<div th:replace="fragments_final :: head_banner('tag') "></div>
+			<div th:replace="fragments_final :: header_center('tag') "></div>
+		</header>
+
+		<div class="container container-240">
+			<div class="single-product-detail product-bundle product-aff">
+				<ul class="breadcrumb">
+					<li>
+						<a href="#">Home</a>
+					</li>
+					<th:block th:each="parent : ${listCategoryParents}">
+						<li class="active">
+							<a th:href="@{'/c/' + ${parent.alias}}">[[${parent.name}]]</a>
+						</li>
+
+					</th:block>
+					<li class="active" th:if="${product != null}">
+						<span> [[${product.shortName}]]</span>
+					</li>
+				</ul>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="flex product-img-slide">
+							<div class="product-images">
+								<div class="main-img js-product-slider">
+									<a href="#" class="hover-images effect">
+										<img th:src="@{${product.mainImagePath}}" alt="photo" class="img-reponsive">
+									</a>
+									<th:block th:each="img : ${product.images}">
+										<a href="#" class="hover-images effect">
+											<img th:src="@{${img.imagePath}}" alt="photo" class="img-reponsive">
+										</a>
+									</th:block>
+								</div>
+							</div>
+							<div class="multiple-img-list-ver2 js-click-product">
+								<div class="product-col">
+									<div class="img active">
+										<img th:src="@{${product.mainImagePath}}" alt="photo" class="img-reponsive">
+									</div>
+								</div>
+								<th:block th:each="img : ${product.images}">
+									<div class="product-col">
+										<div class="img">
+											<img th:src="@{${img.imagePath}}" alt="images" class="img-responsive">
+										</div>
+									</div>
+								</th:block>
+
+							</div>
+						</div>
+
+
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="single-flex">
+							<div class="single-product-info product-info product-grid-v2 s-50">
+								<p class="product-cate">[[${product.category.name}]]</p>
+								<div class="product-rating">
+									<span class="star star-5"></span>
+									<span class="star star-4"></span>
+									<span class="star star-3"></span>
+									<span class="star star-2"></span>
+									<span class="star star-1"></span>
+									<div class="number-rating">( 896 reviews )</div>
+								</div>
+								<h3 class="product-title">
+									<a href="#">[[${product.name}]]</a>
+								</h3>
+								<th:block th:if="${product.discountPercent > 0}">
+									<div class="product-price">
+										<span class="red">
+											<div th:replace="product/product_fragment ::price_fragment(${product.discountPrice})"></div>
+										</span>
+
+										<span class="old">
+											<div th:replace="product/product_fragment ::price_fragment(${product.price})"></div>
+										</span>
+									</div>
+								</th:block>
+								<th:block th:if="${product.discountPercent <= 0}">
+									<div class="product-price">
+										<span>
+											<div th:replace="product/product_fragment ::price_fragment(${product.price})"></div>
+										</span>
+									</div>
+
+								</th:block>
+								<div class="availability">
+									<p class="product-inventory">
+										<label>Availability : </label>
+										<span th:if="${product.inStock}"> In stock</span>
+										<span th:unless="${product.inStock}" style="color: red">Out of stock</span>
+									</p>
+								</div>
+								<div class="product-brand">
+									<p>Brand :</p>
+									<img th:src="@{${product.brand.logoPath}}" alt="">
+								</div>
+
+								<div class="short-desc">
+									<ul class="desc-list" th:utext="${product.shortDescription}">
+									</ul>
+								</div>
+
+
+								<div class="single-product-button-group">
+									<div class="e-btn cart-qtt btn-gradient">
+										<div class="e-quantity">
+											<input type="number" step="1" min="1" max="999" name="quantity" value="1" title="Qty" class="qty input-text js-number" size="4">
+											<div class="tc pa">
+												<a class="js-plus quantity-right-plus">
+													<i class="fa fa-caret-up"></i>
+												</a>
+												<a class="js-minus quantity-left-minus">
+													<i class="fa fa-caret-down"></i>
+												</a>
+											</div>
+										</div>
+
+										<a href="#" class="btn-add-cart addToCart" th:pid="${product.id}">
+											Add to cart
+											<span class="icon-bg icon-cart v2"></span>
+										</a>
+									</div>
+									<a href="#" class="e-btn btn-icon">
+										<span class="icon-bg icon-wishlist"></span>
+									</a>
+									<a href="#" class="e-btn btn-icon">
+										<span class="icon-bg icon-compare"></span>
+									</a>
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="single-product-tab bd-7">
+					<div class="cmt-title text-center abs">
+						<ul class="nav nav-tabs v3 text-center">
+							<li class="active">
+								<a data-toggle="pill" href="#desc">Description</a>
+							</li>
+						</ul>
+					</div>
+					<div class="tab-content">
+						<div id="desc" class="tab-pane fade in active">
+							<div class="entry-content active">
+								<div class="e-text">
+									<div class="entry-inside v3">
+										<div class="row entry-middle">
+											<div class="entry-info col-xs-12 col-sm-6 col-md-6">
+												<h3>Product Description:</h3>
+												<div th:utext="${product.fullDescription}"></div>
+											</div>
+
+											<div class="entry-info col-xs-12 col-sm-6 col-md-6">
+												<h3>Product Details:</h3>
+												<th:block th:each="detail : ${product.details}">
+													<div>
+														<b>[[${detail.name}]]:</b>
+														<span>[[${detail.value}]]</span>
+													</div>
+												</th:block>
+											</div>
+										</div>
+
+										<div class="text-center image-bd img-cal">
+											<img src="img/single/des_2.jpg" alt="">
+										</div>
+									</div>
+								</div>
+								<div class="entry-button text-center abs">
+									<a href="#" class="btn-show">
+										Show more
+										<i class="ion-chevron-down"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div id="info" class="tab-pane fade in"></div>
+						<div id="review" class="tab-pane fade in "></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="fragments_final :: page_footer('tag')"></div>
+		<div th:replace="fragments :: modal_dialog"></div>
+		<script type="text/javascript">
+			var contextPath = "[[@{/}]]";
+			var csrfHeaderName = "[[${_csrf.headerName}]]";
+			var csrfValue = "[[${_csrf.token}]]";
+		</script>
+</body>
+
+</html>

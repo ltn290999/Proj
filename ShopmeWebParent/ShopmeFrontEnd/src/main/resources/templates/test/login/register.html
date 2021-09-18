@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments_final :: header_login('Register')"></head>
+
+<body>
+	<div class="wrappage">
+		<header id="header" class="header-v1">
+			<div th:replace="fragments_final :: head_banner('tag') "></div>
+			<div th:replace="fragments_final :: header_center('tag') "></div>
+		</header>
+	</div>
+	<div class="container" style="margin: 70px auto">
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54 m-t-40 m-b-40">
+					<form class="login100-form validate-form" th:action="@{/create_customer}" method="post" th:object="${customer}">
+						<span class="login100-form-title p-b-49">Customer Registration </span>
+
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">First Name</span>
+							<input class="input100" type="text" th:field="*{firstName}">
+						</div>
+
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Password is required">
+							<span class="label-input100">Last Name:</span>
+							<input class="input100" type="text" th:field="*{LastName}">
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">Email:</span>
+							<input class="input100" type="email" th:field="*{email}">
+						</div>
+
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Password is required">
+							<span class="label-input100">Password:</span>
+							<input class="input100" type="password" th:field="*{password}" oninput="checkPasswordMatch(document.getElementById('confirmPassword'))">
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">Re-type Password:</span>
+							<input class="input100" type="password" id="confirmPassword" oninput="checkPasswordMatch(this)" required>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">Phone Number:</span>
+							<input class="input100" type="text" th:field="*{phoneNumber}">
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">Address Line 1:</span>
+							<input class="input100" type="text" th:field="*{addressLine1}">
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">Address Line 2:</span>
+							<input class="input100" type="text" th:field="*{addressLine2}">
+						</div>
+
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">City:</span>
+							<input class="input100" type="text" th:field="*{city}">
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">Country:</span>
+							<select class="input100" th:field="*{country}">
+								<th:block th:each="country : ${listCountries}">
+									<option th:value="${country.id}">[[${country.name}]]</option>
+								</th:block>
+							</select>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">State/Province:</span>
+							<input class="input100" type="text" th:field="*{state}" list="listStates">
+							<datalist id="listStates">
+							</datalist>
+						</div>
+						<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+							<span class="label-input100">Postal Code:</span>
+							<input class="input100" type="text" th:field="*{postalCode}">
+						</div>
+
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+								<button class="login100-form-btn" type="submit">Create Account</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div th:replace="fragments :: modal_dialog"></div>
+	<div th:replace="fragments_final :: page_footer('tag')"></div>
+
+	<script type="text/javascript" th:src="@{/js/searchAjax.js}"></script>
+	<script type="text/javascript">
+		contextPath = "[[@{/}]]";
+		function checkEmailUnique(form) {
+			url = "[[@{/customers/check_unique_email}]]";
+			customerEmail = $("#email").val();
+			csrfValue = $("input[name='_csrf']").val();
+
+			userId = $("#id").val();
+			params = {
+
+				email : customerEmail,
+				_csrf : csrfValue
+			};
+
+			$
+					.post(
+							url,
+							params,
+							function(response) {
+								if (response == "OK") {
+									form.submit();
+								} else if (response == "Duplicated") {
+									showWarningModal("There is another customer having the email "
+											+ customerEmail);
+
+								} else {
+									showErrorModal("Unknown response from server");
+								}
+
+							}).fail(function() {
+						showErrorModal("Could not connect to server");
+					});
+			return false;
+		}
+	</script>
+	<script type="text/javascript" th:src="@{/js/common_customer_form.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
+	<script th:src="@{/test/login/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/test/login/vendor/animsition/js/animsition.min.js}"></script>
+	<script th:src="@{/test/login/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/test/login/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/test/login/vendor/select2/select2.min.js}"></script>
+	<script th:src="@{/test/login/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/test/login/vendor/daterangepicker/daterangepicker.js}"></script>
+	<script th:src="@{/test/login/vendor/countdowntime/countdowntime.js}"></script>
+	<script th:src="@{/test/login/js/main.js}"></script>
+
+
+</body>
+
+</html>

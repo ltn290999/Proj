@@ -1,0 +1,66 @@
+
+<ul class="mini-products-list">
+	<th:block th:each="item, status : ${cartItems}" th:with="product = ${item.product}">
+		<li class="item-cart">
+			<div class="product-img-wrap">
+				<a href="#">
+					<img th:src="@{${product.mainImagePath}}" alt="" class="img-reponsive">
+				</a>
+			</div>
+			<div class="product-details">
+				<div class="inner-left">
+					<div class="product-name">
+						<a th:href="@{'/p/'+${product.alias}}" target="_blank" th:title="${product.name}">[[${product.shortNameForIndex}]]</a>
+					</div>
+					<div class="product-price">
+						<div th:replace="product/product_fragment :: product_price"></div>
+						<div>( x[[${item.quantity}]])</div>
+					</div>
+				</div>
+			</div>
+			<a th:href="@{'/cart/remove/'+${product.id}}" class="e-del">
+				<i class="ion-ios-close-empty"></i>
+			</a>
+		</li>
+	</th:block>
+</ul>
+<div class="bottom-cart">
+	<div class="cart-price">
+		<span>Subtotal:</span>
+		<span class="price-total">
+			<span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+			<span id="total" class="h3">[[${#numbers.formatDecimal(estimatedTotal,1,THOUSANDS_POINT_TYPE,DECIMAL_DIGITS,DECIMAL_POINT_TYPE)}]]</span>
+			<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+
+		</span>
+	</div>
+	<div class="button-cart">
+		<a th:href="@{'/cart'}" class="cart-btn btn-gradient" onclick="window.location.href='/Shopme/cart'" style="width: 100%">View Cart</a>
+	</div>
+</div>
+
+<script>
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";
+	$(document).ready(function() {
+		$(".e-del").on("click", function(evt) {
+			evt.preventDefault();
+			removeProduct($(this));
+		});
+	});
+	function removeProduct(link) {
+		url = link.attr("href");
+		$.ajax({
+			type : "DELETE",
+			url : url,
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(csrfHeaderName, csrfValue);
+			}
+		}).done(function(response) {
+			getCountItems();
+			showModalDialog("Shopping Cart", response);
+		}).fail(function() {
+			alert("Error");
+		});
+	}
+</script>

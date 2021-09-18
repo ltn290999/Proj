@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments_final :: header_login('Register Success')"></head>
+
+<body>
+	<div class="wrappage">
+		<header id="header" class="header-v1">
+			<div th:replace="fragments_final :: head_banner('tag') "></div>
+			<div th:replace="fragments_final :: header_center('tag') "></div>
+		</header>
+	</div>
+	<div class="container" style="margin: 70px auto">
+		<div class="limiter">
+			<div class="container-login100" style="background-image: url('/Shopme/test/login/images/bg-01.jpg');">
+				<div class="text-center text-dark">
+					<h2>Customer Registration</h2>
+					<h3>You have registered successfully as a customer</h3>
+					<h4>Please check your email to verify our account</h4>
+					<h4>
+						<a style="color: aliceblue; font-size: 20px" th:href="@{/login}">Login here</a>
+					</h4>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div th:replace="fragments_final :: page_footer('tag')"></div>
+	
+	<script type="text/javascript" th:src="@{/js/searchAjax.js}"></script>
+	<script th:src="@{/test/login/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/test/login/vendor/animsition/js/animsition.min.js}"></script>
+	<script th:src="@{/test/login/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/test/login/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/test/login/vendor/select2/select2.min.js}"></script>
+	<script th:src="@{/test/login/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/test/login/vendor/daterangepicker/daterangepicker.js}"></script>
+	<script th:src="@{/test/login/vendor/countdowntime/countdowntime.js}"></script>
+	<script th:src="@{/test/login/js/main.js}"></script>
+
+</body>
+
+</html>

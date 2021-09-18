@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments_final :: page_header" />
+<body>
+	<div class="wrappage">
+		<div class="quickview-wrapper" style="display: none">
+			<div class="quick-modal">
+				<div id="quickview-content"></div>
+			</div>
+		</div>
+
+		<header id="header" class="header-v1">
+			<div th:replace="fragments_final :: head_banner('tag') "></div>
+			<div th:replace="fragments_final :: header_center('tag') "></div>
+		</header>
+
+		<!--content-->
+		<div class="container container-240 shop-collection">
+			<ul class="breadcrumb">
+				<li>
+					<a href="#">Home</a>
+				</li>
+				<th:block th:each="parent : ${listCategoryParents}" th:if="${#lists.size(listCategoryParents) != 0} ">
+					<li class="active">
+						<a th:href="@{'/c/' + ${parent.alias}}">[[${parent.name}]]</a>
+					</li>
+
+				</th:block>
+			</ul>
+
+			<div class="row shop-colect">
+				<div class="col-md-3 col-sm-3 col-xs-12 col-left collection-sidebar" id="filter-sidebar">
+					<div class="filter filter-cate">
+						<ul class="wiget-content v2">
+							<th:block th:each="cat : ${listCategories}">
+								<li class="vertical-item level1 vertical-drop">
+									<a th:href="@{'/c/'+${cat.alias}}">[[${cat.name}]]</a>
+									<th:block th:if="${#lists.size(cat.children)} !=0 ">
+										<div class="menu-level-1 dropdown-menu vertical-menu">
+											<ul class="vertical-menu1">
+												<th:block th:each="ca : ${cat.children}">
+													<li>
+														<a th:href="@{'/c/'+${ca.alias}}">[[${ca.name}]]</a>
+													</li>
+												</th:block>
+											</ul>
+										</div>
+									</th:block>
+
+								</li>
+							</th:block>
+						</ul>
+					</div>
+					<div class="filter filter-group">
+						<h1 class="widget-blog-title">Product filter</h1>
+						<div class="filter-price filter-inside">
+							<h3>Price</h3>
+							<div class="filter-content">
+								<div class="price-range-holder">
+									<input type="text" class="price-slider" value="">
+								</div>
+								<span class="min-max"> Price: $25 — $258 </span>
+								<a href="#" class="btn-filter e-gradient">Filter</a>
+							</div>
+						</div>
+						<div class="filter-brand filter-inside">
+							<h3>Brands</h3>
+							<ul class="e-filter brand-filter">
+								<th:block th:each="brand :${listBrandForBanner}">
+									<li>
+										<a href="#"> [[${brand.name}]] </a>
+									</li>
+								</th:block>
+
+							</ul>
+							<a href="#" class="btn-showmore">Show more +</a>
+						</div>
+						<!-- <div class="filter-color filter-brand filter-inside">
+							<h3>Color</h3>
+							<ul class="e-filter brand-filter">
+								<li>
+									<a href="#">
+										Black
+										<span class="number">(80)</span>
+									</a>
+								</li>
+
+							</ul>
+							<a href="#" class="btn-showmore">Show more +</a>
+						</div> -->
+					</div>
+
+
+				</div>
+				<div class="col-md-9 col-sm-12 col-xs-12 collection-list">
+					<div class="e-product">
+
+						<div class="pd-middle">
+							<div class="view-mode view-group">
+								<a class="grid-icon col active">
+									<img th:src="@{/test/img/grid.png}" alt="">
+								</a>
+								<a class="grid-icon col2">
+									<img th:src="@{/test/img/grid2.png}" alt="">
+								</a>
+								<a class="list-icon list">
+									<img th:src="@{/test/img/list.png}" alt="">
+								</a>
+							</div>
+
+						</div>
+						<div class="product-collection-grid product-grid">
+							<div class="row">
+								<th:block th:each="product : ${listProducts}">
+									<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 product-item">
+										<div class="pd-bd product-inner">
+											<div class="product-img">
+												<a th:href="@{'/p/' +${product.alias}}">
+													<img th:src="@{${product.mainImagePath}}" alt="" class="img-reponsive">
+												</a>
+											</div>
+											<div class="product-info">
+												<div class="color-group"></div>
+												<div class="element-list element-list-left">
+													<div class="desc-list" th:utext="${product.shortDescription}"></div>
+												</div>
+												<div class="element-list element-list-middle">
+													<div class="product-rating bd-rating">
+														<span class="star star-5"></span>
+														<span class="star star-4"></span>
+														<span class="star star-3"></span>
+														<span class="star star-2"></span>
+														<span class="star star-1"></span>
+														<div class="number-rating">( 896 reviews )</div>
+													</div>
+													<p class="product-cate">[[${product.category.name}]]</p>
+													<h3 class="product-title">
+														<a href="#">[[${product.shortNameForIndex}]]</a>
+													</h3>
+													<div class="product-bottom">
+														<th:block th:if="${product.discountPercent > 0}">
+															<div class="product-price">
+																<span class="red">
+																	<div th:replace="product/product_fragment ::price_fragment(${product.discountPrice})"></div>
+																</span>
+
+																<span class="old">
+																	<div th:replace="product/product_fragment ::price_fragment(${product.price})"></div>
+																</span>
+															</div>
+														</th:block>
+														<th:block th:if="${product.discountPercent <= 0}">
+															<div class="product-price">
+																<span>
+																	<div th:replace="product/product_fragment ::price_fragment(${product.price})"></div>
+																</span>
+															</div>
+														</th:block>
+														<a th:href="@{'/p/testquickview/' +${product.id}}" class="btn-icon btn-view link-detail">
+															<span class="icon-bg icon-view"></span>
+														</a>
+													</div>
+													<div class="product-bottom-group">
+														<a href="#" class="btn-icon add-to-cart">
+															<span class="icon-bg icon-cart"></span>
+														</a>
+														<a href="#" class="btn-icon">
+															<span class="icon-bg icon-wishlist"></span>
+														</a>
+														<a href="#" class="btn-icon">
+															<span class="icon-bg icon-compare"></span>
+														</a>
+													</div>
+												</div>
+												<div class="product-button-group">
+													<a href="#" class="btn-icon addToCart" th:pid="${product.id}">
+														<span class="icon-bg icon-cart"></span>
+													</a>
+													<a href="#" class="btn-icon">
+														<span class="icon-bg icon-wishlist"></span>
+													</a>
+													<a href="#" class="btn-icon">
+														<span class="icon-bg icon-compare"></span>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</th:block>
+							</div>
+						</div>
+
+						<div class="pd-middle space-v1" style="justify-content: center">
+							<ul class="pagination">
+								<th:block th:if="${category != null} ">
+									<div th:replace="fragments :: pagination('/c/'+${category.alias} ,'product')"></div>
+								</th:block>
+								<th:block th:unless="${category != null} ">
+									<div th:replace="fragments :: pagination('/b/'+${brandName} ,'product')"></div>
+								</th:block>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div th:replace="fragments_final :: page_footer('tag')"></div>
+	<div th:replace="fragments :: modal_dialog"></div>
+	<script type="text/javascript">
+		var contextPath = "[[@{/}]]";
+		var csrfHeaderName = "[[${_csrf.headerName}]]";
+		var csrfValue = "[[${_csrf.token}]]";
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Brands - Shopme Admin','none')" />
+<body>
+	<div class="container-fluid">
+		<div th:replace=" navigation :: menu"></div>
+		<div>
+			<h1>Manage Brands</h1>
+			<a th:href="@{/brands/new}" class="fas fa-user-plus fa-2x icon-dark mr-2"></a>
+			<a th:href="@{/brands/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+			<a th:href="@{/brands/export/excel}" class="fas fa-file-excel fa-2x icon-dark mr-2"></a>
+		</div>
+		<div th:replace="fragments :: search_form_and_message"></div>
+		<div class="full-details">
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>
+						<th>Brand ID</th>
+						<th>Logo</th>
+						<th th:replace="fragments :: column_link('name','Brand Name','none')" />
+						<th>Categories</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="brand : ${listBrands}">
+						<td class="hideable-column">[[${brand.id}]]</td>
+						<td>
+							<span th:if="${brand.logo == null}" class="fas fa-portrait fa-3x icon-dark"></span>
+							<img th:if="${brand.logo != null}" th:src="@{${brand.logoPath}}" style="width: 100px" />
+						</td>
+						<td class="hideable-column">[[${brand.name}]]</td>
+						<td>
+							<span class="badge badge-secondary mr-1" th:each="cat : ${brand.categories}" th:utext="${cat.name}"></span>
+						</td>
+						<td>
+							<div th:replace="fragments :: edit('brand','/brands/edit/' + ${brand.id})"></div>
+							&nbsp;
+							<div th:replace="fragments :: delete('brand',${brand.id},'/brands/delete/' +${brand.id},true)"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div th:replace="fragments :: pagination(,'brands')"></div>
+		<div th:replace="modal_fragments :: confirm_modal"></div>
+	</div>
+	<script th:src="@{/js/common_list.js}"></script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script type="text/javascript">
+		moduleURL = "[[@{/brands}]]";
+		$(document).ready(function() {
+			$(".link-delete").on("click", function(e) {
+				e.preventDefault();
+				showDeleteConfirmModal($(this), 'brand');
+			})
+
+		});
+	</script>
+</body>
+</html>

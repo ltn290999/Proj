@@ -1,0 +1,184 @@
+<a href="#" class="close-btn quickview-close"></a>
+<div class="single-product-detail">
+	<div class="row">
+		<div class="col-md-6 col-sm-6">
+			<div class="product-img js-quickview-slide">
+				<div class="main-img">
+					<a href="#" class="hover-images effect">
+						<img th:src="@{${product.mainImagePath}}" alt="photo" class="img-reponsive">
+					</a>
+				</div>
+				<th:block th:each="img : ${product.images}">
+					<div class="main-img">
+						<a href="#" class="hover-images effect">
+							<img th:src="@{${img.imagePath}}" alt="photo" class="img-reponsive">
+						</a>
+					</div>
+				</th:block>
+
+			</div>
+		</div>
+
+		<div class="col-md-6 col-sm-6">
+			<div class="single-flex">
+				<div class="single-product-info product-info product-grid-v2 s-50">
+					<p class="product-cate">[[${product.category.name}]]</p>
+					<div class="product-rating">
+						<span class="star star-5"></span>
+						<span class="star star-4"></span>
+						<span class="star star-3"></span>
+						<span class="star star-2"></span>
+						<span class="star star-1"></span>
+						<div class="number-rating">( 896 reviews )</div>
+					</div>
+					<h3 class="product-title">
+						<a href="#">[[${product.name}]]</a>
+					</h3>
+					<th:block th:if="${product.discountPercent > 0}">
+						<div class="product-price">
+							<span class="red">
+								<div th:replace="product/product_fragment ::price_fragment(${product.discountPrice})"></div>
+							</span>
+
+							<span class="old">
+								<div th:replace="product/product_fragment ::price_fragment(${product.price})"></div>
+							</span>
+						</div>
+					</th:block>
+					<th:block th:if="${product.discountPercent <= 0}">
+						<div class="product-price">
+							<span>
+								<div th:replace="product/product_fragment ::price_fragment(${product.price})"></div>
+							</span>
+						</div>
+
+					</th:block>
+					<div class="product-sku">
+						<label>Brand :</label>
+						<span> [[${product.brand.name}]]</span>
+					</div>
+					<div class="short-desc">
+						<p class="product-desc" th:utext="${product.shortDescription}"></p>
+
+					</div>
+
+					<div class="single-product-button-group">
+						<div class="e-btn cart-qtt btn-gradient">
+							<th:block sec:authorize="isAuthenticated()">
+								<div class="e-quantity">
+									<input type="number" step="1" min="1" max="999" name="quantity" value="1" th:id="'product'+${product.id}" title="Qty"
+										class="qty input-text js-number" size="4">
+									<div class="tc pa">
+										<a class="js-plus quantity-right-plus">
+											<i class="fa fa-caret-up"></i>
+										</a>
+										<a class="js-minus quantity-left-minus">
+											<i class="fa fa-caret-down"></i>
+										</a>
+									</div>
+								</div>
+
+								<a href="#" id="add2Cart" class="btn-add-cart">
+									Add to cart
+									<span class="icon-bg icon-cart v2"></span>
+								</a>
+							</th:block>
+							<th:block sec:authorize="isAnonymous()">
+								<a th:href="@{/login}" class="btn-add-cart" style="text-align: center"> You must login to add this product. </a>
+							</th:block>
+						</div>
+						<a href="#" class="e-btn btn-icon">
+							<span class="icon-bg icon-wishlist"></span>
+						</a>
+						<a href="#" class="e-btn btn-icon">
+							<span class="icon-bg icon-compare"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:replace="fragments :: modal_dialog"></div>
+<script>
+	$(document)
+			.ready(
+					function() {
+						contextPath = "[[@{/}]]";
+						productId = "[[${product.id}]]";
+						var csrfHeaderName = "[[${_csrf.headerName}]]";
+						var csrfValue = "[[${_csrf.token}]]";
+						$(".js-plus").on("click", function(e) {
+							e.preventDefault();
+
+							var quantity = parseInt($(".js-number").val(), 10);
+							$(".js-number").val(quantity + 1);
+						});
+
+						$(".js-minus").on("click", function(e) {
+							e.preventDefault();
+							var quantity = parseInt($('.js-number').val(), 10);
+							if (quantity > 0) {
+								$('.js-number').val(quantity - 1);
+							}
+						});
+						$("#add2Cart")
+								.on(
+										"click",
+										function() {
+											quantity = $("#product" + productId)
+													.val();
+											url = contextPath + "cart/add/"
+													+ productId + "/"
+													+ quantity;
+											console.log(quantity);
+											$
+													.ajax(
+															{
+																type : "POST",
+																url : url,
+																beforeSend : function(
+																		xhr) {
+																	xhr
+																			.setRequestHeader(
+																					csrfHeaderName,
+																					csrfValue);
+																}
+															})
+													.done(
+															function(response) {
+																getCountItems();
+																showModalDialog(
+																		"Shopping Cart",
+																		response);
+															
+															})
+													.fail(
+															function() {
+																showErrorModal("Error while adding product to shopping cart.");
+															});
+											return false;
+
+										});
+						$('.js-quickview-slide')
+								.slick(
+										{
+											autoplay : false,
+											slidesToShow : 1,
+											slidesToScroll : 1,
+											infinite : true,
+											arrows : true,
+											prevArrow : '<span class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></span>',
+											nextArrow : '<span class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
+											dots : true
+										});
+						$(".quickview-close").on("click", function() {
+							$('.quickview-wrapper').hide();
+							$('.quickview-wrapper').removeClass('open');
+							$('.quick-modal').removeClass('show');
+							return false;
+						});
+
+					});
+</script>
+<script th:src="@{/js/common_modal.js}"></script>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content(statusVar, iconName, label)" style="display: inline">
+	<th:block>
+		<i th:class="'fas ' + ${iconName} + ' fa-2x '" th:style=" ${statusVar ? 'color:green' : 'color:gray'}"></i>
+	</th:block>
+	<span><small>[[${label}]]</small></span>
+</div>

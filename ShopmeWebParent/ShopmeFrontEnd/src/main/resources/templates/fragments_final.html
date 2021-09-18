@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:fragment="page_header">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Home</title>
+<link rel="shortcut icon" th:href="@{/test/img/favicon.png}" type="image/png">
+<link rel="stylesheet" th:href="@{/test/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/test/css/slick.css}">
+<link rel="stylesheet" th:href="@{/test/css/slick-theme.css}">
+<link rel="stylesheet" th:href="@{/test/css/owl.theme.default.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/css/style.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/css/bootstrap-slider.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
+<link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<head th:fragment="header_login(title)">
+<title>[[${title}]]</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" th:href="@{/test/login/images/icons/favicon.ico}" />
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/vendor/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/fonts/iconic/css/material-design-iconic-font.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/vendor/animate/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/vendor/css-hamburgers/hamburgers.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/vendor/animsition/css/animsition.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/vendor/select2/select2.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/vendor/daterangepicker/daterangepicker.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/css/util.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/login/css/main.css}">
+<link rel="stylesheet" th:href="@{/test/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/test/css/slick.css}">
+<link rel="stylesheet" th:href="@{/test/css/slick-theme.css}">
+<link rel="stylesheet" th:href="@{/test/css/owl.theme.default.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/test/css/style.css}">
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+
+	<div th:fragment="head_banner(remove)" th:remove="${remove}">
+		<div class="header-top-banner">
+			<a href="#">
+				<img th:src="@{/test/img/banner-index.png}" alt="" class="img-reponsive">
+			</a>
+		</div>
+		<div class="topbar">
+			<div class="container container-240">
+				<div class="row flex">
+					<div class="col-md-12 col-sm-12 col-xs-12 flex-right">
+						<div class="topbar-right">
+							<div class="element hidden-xs hidden-sm">
+								<a href="#">Buyer Protection </a>
+							</div>
+							<div class="element hidden-xs hidden-sm">
+								<a href="#">
+									<img th:src="@{/test/img/icon-call.png}" alt="" width="14" height="16" />
+									<span>CSKH: 1900 1901</span>
+								</a>
+							</div>
+							<div class="element element-leaguage">
+								<a id="label2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<img th:src="@{/test/img/icon-l.png}" alt="">
+									<span>English</span>
+									<span class="ion-ios-arrow-down f-10 e-arrow"></span>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="label2">
+									<li>
+										<a href="#">EN</a>
+									</li>
+									<li>
+										<a href="#">DE</a>
+									</li>
+									<li>
+										<a href="#">FR</a>
+									</li>
+								</ul>
+							</div>
+							<div class="element element-currency">
+								<a id="label3" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+
+									<span>USD</span>
+									<span class="ion-ios-arrow-down f-10 e-arrow"></span>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="label3">
+									<li>
+										<a href="#">USD</a>
+									</li>
+									<li>
+										<a href="#">AUD</a>
+									</li>
+									<li>
+										<a href="#">EUR</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div th:fragment="header_center(remove)" th:remove="${remove}">
+		<div class="header-center">
+			<div class="container container-240">
+				<div class="row flex">
+					<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 v-center header-logo">
+						<a th:href="@{/}">
+							<img th:src="@{/test/img/logo.png}" alt="" class="img-reponsive">
+						</a>
+					</div>
+					<div class="col-lg-6 col-md-6 v-center hidden-xs hidden-sm">
+						<input class="form-control" name="keyword" id="searchInput" placeholder="i’m shoping for...">
+						<span class="input-group-btn">
+							<button class="button_search" type="button">
+								<i class="ion-ios-search-strong"></i>
+							</button>
+						</span>
+					</div>
+
+					<div class="col-lg-4  col-md-4 col-sm-6 col-xs-6 v-center header-sub">
+						<div class="right-panel">
+							<div class="header-sub-element row">
+								<th:block sec:authorize="isAuthenticated()">
+									<a class="hidden-xs hidden-sm div-center" th:href="@{/account_details}">
+										<span style="font-size: 18px" sec:authentication="principal.fullName"></span>
+										<img th:src="@{/test/img/icon-user.png}" alt="">
+
+									</a>
+									<a class="hidden-xs hidden-sm div-center" th:href="@{/address_book}">
+										<img th:src="@{/test/img/icon-address.png}" alt="">
+									</a>
+									<a th:href="@{/orders}" class="div-center">
+										<img th:src="@{/images/track.png}" alt="" style="width: 30px; height: 30px">
+									</a>
+
+								</th:block>
+								<th:block sec:authorize="isAnonymous()">
+									<a th:href="@{/login}" class="div-center">
+										<img th:src="@{/test/img/icon-login.jpg}" alt="">
+									</a>
+								</th:block>
+								<th:block sec:authorize="isAnonymous()">
+									<a th:href="@{/register}" class="div-center">
+										<img th:src="@{/images/register.png}" alt="" width="30" height="30" align="Register Account">
+									</a>
+								</th:block>
+									<th:block sec:authorize="isAnonymous()">
+									<a th:href="@{/forgot_password}" class="div-center">
+										<img th:src="@{/images/forgot.jpg}" alt="" width="30" height="30" align="Register Account">
+									</a>
+								</th:block>
+
+
+								<!--shopping cart -->
+								<div class="cart div-center" id="cartQuickview">
+									<a th:href="@{/cart_quickview}" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+										id="label5">
+										<img th:src="@{/test/img/icon-cart.png}" alt="">
+										<span class="count cart-count">0</span>
+									</a>
+									<div class="dropdown-menu dropdown-cart" id="cartView"></div>
+								</div>
+
+								<th:block sec:authorize="isAuthenticated()">
+									<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+										<input type="submit" value="Logout" />
+									</form>
+									<a href="javascript: document.logoutForm.submit()" class="div-center">
+										<img th:src="@{/test/img/icon-login.jpg}" alt="">
+									</a>
+								</th:block>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div th:fragment="page_footer(remove)" th:remove="${remove}">
+		<div class="feature">
+			<div class="container container-240">
+				<div class="feature-inside">
+					<div class="feature-block text-center">
+						<div class="feature-block-img">
+							<img th:src="@{/test/img/feature/truck.png}" alt="" class="img-reponsive">
+						</div>
+						<div class="feature-info">
+							<h3>Worldwide Delivery</h3>
+							<p>With sites in 5 languages, we ship to over 200 countries & regions.</p>
+						</div>
+					</div>
+					<div class="feature-block text-center">
+						<div class="feature-block-img">
+							<img th:src="@{/test/img/feature/credit-card.png}" alt="" class="img-reponsive">
+						</div>
+						<div class="feature-info">
+							<h3>Safe Payment</h3>
+							<p>Pay with the world’s most popular and secure payment methods.</p>
+						</div>
+					</div>
+					<div class="feature-block text-center">
+						<div class="feature-block-img">
+							<img th:src="@{/test/img/feature/safety.png}" alt="" class="img-reponsive">
+						</div>
+						<div class="feature-info">
+							<h3>Shop with Confidence</h3>
+							<p>Our Buyer Protection covers your purchase from click to delivery.</p>
+						</div>
+					</div>
+					<div class="feature-block text-center">
+						<div class="feature-block-img">
+							<img th:src="@{/test/img/feature/telephone.png}" alt="" class="img-reponsive">
+						</div>
+						<div class="feature-info">
+							<h3>24/7 Help Center</h3>
+							<p>Round-the-clock assistance for a smooth shopping experience.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- / end content -->
+		<footer>
+			<div class="f-top">
+				<div class="container container-240">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="footer-block footer-about">
+								<div class="f-logo">
+									<a href="#">
+										<img th:src="@{/test/img/logo.png}" alt="" class="img-reponsive">
+									</a>
+								</div>
+								<ul class="footer-block-content">
+									<li class="address">
+										<span>45 Grand Central Terminal New York,NY 1017 United State USA</span>
+									</li>
+									<li class="phone">
+										<span>(+123) 456 789 - (+123) 666 888</span>
+									</li>
+									<li class="email">
+										<span>Contact@yourcompany.com</span>
+									</li>
+									<li class="time">
+										<span>Mon-Sat 9:00pm - 5:00pm &nbsp;&nbsp;&nbsp; Sun : Closed</span>
+									</li>
+								</ul>
+								<div class="footer-social social">
+									<h3 class="footer-block-title">Follow us</h3>
+									<a href="#" class="fa fa-twitter"></a>
+									<a href="#" class="fa fa-dribbble"></a>
+									<a href="#" class="fa fa-behance"></a>
+									<a href="#" class="fa fa-instagram"></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+							<div class="footer-block">
+								<h3 class="footer-block-title">Quick menu</h3>
+								<ul class="footer-block-content">
+									<li>
+										<a href="#">TV & Video</a>
+									</li>
+									<li>
+										<a href="#">Home Audio & Theater</a>
+									</li>
+									<li>
+										<a href="#">Camera, Photo & Video</a>
+									</li>
+									<li>
+										<a href="#">Cell Phones & Accessories</a>
+									</li>
+									<li>
+										<a href="#">Headphones</a>
+									</li>
+									<li>
+										<a href="#">Video Games</a>
+									</li>
+									<li>
+										<a href="#">Bluetooth & Wireless Speakers</a>
+									</li>
+									<li>
+										<a href="#">Car Electronics</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+							<div class="footer-block">
+								<h3 class="footer-block-title">Customer Service</h3>
+								<ul class="footer-block-content">
+									<li>
+										<a href="#">My Account</a>
+									</li>
+									<li>
+										<a href="#">Track your Order</a>
+									</li>
+									<li>
+										<a href="#">Returns/Exchange</a>
+									</li>
+									<li>
+										<a href="#">FAQs</a>
+									</li>
+									<li>
+										<a href="#">Customer Service</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="footer-block">
+								<div class="footer-block-phone">
+									<h3 class="footer-block-title">Hot Line</h3>
+									<p class="phone-desc">Call Us toll Free</p>
+									<p class="phone-light">(+123) 456 789 or (+123) 666 888</p>
+								</div>
+								<div class="footer-block-newsletter">
+									<h3 class="footer-block-title">Subscription</h3>
+									<p>Register now to get updates on promotions and coupons.</p>
+									<form class="form_newsletter" action="#" method="post">
+										<input type="email" value="" placeholder="Enter your emaill adress" name="EMAIL" id="mail" class="newsletter-input form-control">
+										<button id="subscribe" class="button_mini btn btn-gradient" type="submit">Subscribe</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="f-bottom">
+				<div class="container container-240">
+					<div class="row flex lr">
+						<div class="col-xs-6 f-copyright">
+							<span>© 2010-2018 EngoTheme. All rights reserved.</span>
+						</div>
+						<div class="col-xs-6 f-payment hidden-xs">
+							<a href="#">
+								<img th:src="@{/test/img/payment/mastercard.png}" alt="" class="img-reponsive">
+							</a>
+							<a href="#">
+								<img th:src="@{/test/img/payment/paypal.png}" alt="" class="img-reponsive">
+							</a>
+							<a href="#">
+								<img th:src="@{/test/img/payment/visa.png}" alt="" class="img-reponsive">
+							</a>
+							<a href="#">
+								<img th:src="@{/test/img/payment/american-express.png}" alt="" class="img-reponsive">
+							</a>
+							<a href="#">
+								<img th:src="@{/test/img/payment/western-union.png}" alt="" class="img-reponsive">
+							</a>
+							<a href="#">
+								<img th:src="@{/test/img/payment/jcb.png}" alt="" class="img-reponsive">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<a href="#" class="btn-gradient scroll_top">
+			<i class="ion-ios-arrow-up"></i>
+		</a>
+		<script th:src="@{/js/searchAjax.js}"></script>
+		<script th:src="@{/test/js/jquery.js}"></script>
+		<script th:src="@{/test/js/bootstrap.js}"></script>
+		<script th:src="@{/js/common_modal.js}"></script>
+		<script th:src="@{/test/js/owl.carousel.min.js}"></script>
+		<script th:src="@{/test/js/slick.js}"></script>
+		<script th:src="@{/test/js/bootstrap-slider.min.js}"></script>
+		<script th:src="@{/test/js/slick.min.js}"></script>
+		<script th:src="@{/test/js/countdown.js}"></script>
+		<script th:src="@{/test/js/main.js}"></script>
+		<script th:src="@{/test/js/viewHeader.js}"></script>
+		<script th:src="@{/test/js/shopping_cart_quickview.js}"></script>
+		<script th:src="@{/test/js/owl.carousel.min.js}"></script>
+
+	</div>
+</body>
+
+</html>
